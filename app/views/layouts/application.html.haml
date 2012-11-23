@@ -1,4 +1,48 @@
 !!!
-%html
+%html{:lang => "en"}
   %head
-  %body
+    %meta{:charset => "utf-8"}
+    %title Template · Bootstrap
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+    %meta{:content => "", :name => "description"}
+    %meta{:content => "halida", :name => "author"}
+    %link{href: "/favicon.ico", rel: "shortcut icon", type: "image/x-icon"}/
+    = stylesheet_link_tag "application.css", debug: false
+
+  %body.frontpage
+    .container-narrow
+      .masthead
+        %ul.nav.nav-pills.pull-right
+          %li.active
+            %a{:href => "#"} Home
+          %li
+            %a{:href => "#"} About
+          %li
+            %a{:href => "#"} Contact
+        %h3.muted Project name
+      %hr
+        .jumbotron
+          %h1 Super awesome marketing speak!
+          %p.lead Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+          %a.btn.btn-large.btn-success{:href => "#"} Sign up today
+        %hr
+          .row-fluid.marketing
+            .span6
+              %h4 Subheading
+              %p Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.
+              %h4 Subheading
+              %p Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.
+              %h4 Subheading
+              %p Maecenas sed diam eget risus varius blandit sit amet non magna.
+            .span6
+              %h4 Subheading
+              %p Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.
+              %h4 Subheading
+              %p Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.
+              %h4 Subheading
+              %p Maecenas sed diam eget risus varius blandit sit amet non magna.
+          %hr
+            .footer
+              %p © Company 2012
+
+    = javascript_include_tag "application.js", debug: false
