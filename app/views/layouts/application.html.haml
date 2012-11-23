@@ -8,41 +8,55 @@
     %meta{:content => "halida", :name => "author"}
     %link{href: "/favicon.ico", rel: "shortcut icon", type: "image/x-icon"}/
     = stylesheet_link_tag "application.css", debug: false
+    = yield(:head)
+    = csrf_meta_tag
 
   %body.frontpage
-    .container-narrow
-      .masthead
-        %ul.nav.nav-pills.pull-right
-          %li.active
-            %a{:href => "#"} Home
-          %li
-            %a{:href => "#"} About
-          %li
-            %a{:href => "#"} Contact
-        %h3.muted Project name
+    .navbar.navbar-inverse.navbar-fixed-top
+      .navbar-inner
+        .container
+          %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.brand{:href => "#"} Project name
+          .nav-collapse.collapse
+            %ul.nav
+              %li.active
+                %a{:href => "#"} Home
+              %li
+                %a{:href => "#about"} About
+              %li
+                %a{:href => "#contact"} Contact
+              %li.dropdown
+                %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                  Dropdown
+                  %b.caret
+                %ul.dropdown-menu
+                  %li
+                    %a{:href => "#"} Action
+                  %li
+                    %a{:href => "#"} Another action
+                  %li
+                    %a{:href => "#"} Something else here
+                  %li.divider
+                  %li.nav-header Nav header
+                  %li
+                    %a{:href => "#"} Separated link
+                  %li
+                    %a{:href => "#"} One more separated link
+            %form.navbar-form.pull-right
+              %input.span2{:placeholder => "Email", :type => "text"}
+                %input.span2{:placeholder => "Password", :type => "password"}
+                  %button.btn{:type => "submit"} Sign in
+          / /.nav-collapse
+    .container
+      = content_for?(:body) ? yield(:body) : yield
+
       %hr
-        .jumbotron
-          %h1 Super awesome marketing speak!
-          %p.lead Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-          %a.btn.btn-large.btn-success{:href => "#"} Sign up today
-        %hr
-          .row-fluid.marketing
-            .span6
-              %h4 Subheading
-              %p Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.
-              %h4 Subheading
-              %p Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.
-              %h4 Subheading
-              %p Maecenas sed diam eget risus varius blandit sit amet non magna.
-            .span6
-              %h4 Subheading
-              %p Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.
-              %h4 Subheading
-              %p Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.
-              %h4 Subheading
-              %p Maecenas sed diam eget risus varius blandit sit amet non magna.
-          %hr
-            .footer
-              %p © Company 2012
+        %footer
+          %p © Company 2012
 
     = javascript_include_tag "application.js", debug: false
+    = yield :scripts
+    = yield :end
