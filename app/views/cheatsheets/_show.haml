@@ -7,7 +7,7 @@
         .desc= group.desc
         .shortcuts
           - group.shortcuts.each do |shortcut|
-            .shortcut
+            .shortcut{"data-key" => shortcut.key}
               %span.key= shortcut.key
               %span.desc= shortcut.desc
   
