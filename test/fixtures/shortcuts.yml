@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  key: MyString
+  desc: MyText
+  group_id: 1
+  cheatsheet_id: 1
+
+two:
+  key: MyString
+  desc: MyText
+  group_id: 1
+  cheatsheet_id: 1

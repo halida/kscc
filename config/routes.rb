@@ -1,5 +1,11 @@
 Kscc::Application.routes.draw do
 
+  resources :shortcuts
+
+  resources :groups
+
+  resources :cheatsheets
+
   root to: 'home#frontpage'
 
   # The priority is based upon order of creation:

@@ -1,0 +1,23 @@
+%h1 Listing cheatsheets
+
+%table
+  %tr
+    %th Title
+    %th Desc
+    %th Layout
+    %th
+    %th
+    %th
+
+  - @cheatsheets.each do |cheatsheet|
+    %tr
+      %td= cheatsheet.title
+      %td= cheatsheet.desc
+      %td= cheatsheet.layout
+      %td= link_to 'Show', cheatsheet
+      %td= link_to 'Edit', edit_cheatsheet_path(cheatsheet)
+      %td= link_to 'Destroy', cheatsheet, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Cheatsheet', new_cheatsheet_path

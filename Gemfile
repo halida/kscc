@@ -11,7 +11,9 @@ gem 'sqlite3'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'bootstrap-sass-rails'
+  gem 'sass-rails', '~> 3.2'
+  gem "compass-rails"
+  gem 'bootstrap-sass', '~> 2.2.1.1'
 
   gem 'coffee-rails', '~> 3.2.1'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -27,12 +29,17 @@ gem 'rails_admin'
 
 gem 'haml'
 gem 'haml-rails'
+gem 'coffee-filter'
+
 gem 'formtastic'
+gem 'formtastic-bootstrap'
+
 gem 'client_side_validations'
 gem 'client_side_validations-formtastic'
 
 gem 'jquery-rails'
 gem 'spine-rails'
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

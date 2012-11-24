@@ -1,0 +1,25 @@
+%h1 Listing shortcuts
+
+%table
+  %tr
+    %th Key
+    %th Desc
+    %th Group
+    %th Cheatsheet
+    %th
+    %th
+    %th
+
+  - @shortcuts.each do |shortcut|
+    %tr
+      %td= shortcut.key
+      %td= shortcut.desc
+      %td= shortcut.group_id
+      %td= shortcut.cheatsheet_id
+      %td= link_to 'Show', shortcut
+      %td= link_to 'Edit', edit_shortcut_path(shortcut)
+      %td= link_to 'Destroy', shortcut, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Shortcut', new_shortcut_path

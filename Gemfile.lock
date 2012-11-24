@@ -32,15 +32,16 @@ GEM
     bcrypt-ruby (3.0.1)
     bootstrap-sass (2.2.1.1)
       sass (~> 3.2)
-    bootstrap-sass-rails (2.2.1.2)
-      railties (>= 3.1.0)
-      sass-rails (>= 3.1.0)
     builder (3.0.4)
     cancan (1.6.8)
+    chunky_png (1.2.5)
     client_side_validations (3.2.1)
     client_side_validations-formtastic (2.2.1)
       client_side_validations (~> 3.2.0)
       formtastic (~> 2.2.0)
+    coffee-filter (0.1.1)
+      coffee-script (>= 2.2.0)
+      haml (>= 3.0.18)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -48,6 +49,12 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.4.0)
+    compass (0.12.2)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
+    compass-rails (1.0.1)
+      compass (~> 0.12.0)
     devise (2.1.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -61,6 +68,10 @@ GEM
       sass-rails (>= 3.1.1)
     formtastic (2.2.1)
       actionpack (>= 3.0)
+    formtastic-bootstrap (2.0.0)
+      formtastic (~> 2.2)
+      formtastic-bootstrap
+    fssm (0.2.9)
     haml (3.1.7)
     haml-rails (0.3.5)
       actionpack (>= 3.1, < 4.1)
@@ -164,18 +175,22 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bootstrap-sass-rails
+  bootstrap-sass (~> 2.2.1.1)
   cancan
   client_side_validations
   client_side_validations-formtastic
+  coffee-filter
   coffee-rails (~> 3.2.1)
+  compass-rails
   devise
   formtastic
+  formtastic-bootstrap
   haml
   haml-rails
   jquery-rails
   rails (= 3.2.6)
   rails_admin
+  sass-rails (~> 3.2)
   spine-rails
   sqlite3
   therubyracer

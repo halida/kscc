@@ -1,0 +1,16 @@
+.cheatsheet
+  = render partial: "keyboards/k#{@cheatsheet.layout}"
+  .groups
+    - @cheatsheet.groups.each do |group|
+      .group{'data-color' => group.color}
+        .name= group.name
+        .desc= group.desc
+        .shortcuts
+          - group.shortcuts.each do |shortcut|
+            .shortcut
+              %span.key= shortcut.key
+              %span.desc= shortcut.desc
+  
+- content_for :scripts do
+  :coffeescript
+    $ -> init_cheatsheet()

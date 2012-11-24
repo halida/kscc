@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Key:
+  = @shortcut.key
+%p
+  %b Desc:
+  = @shortcut.desc
+%p
+  %b Group:
+  = @shortcut.group_id
+%p
+  %b Cheatsheet:
+  = @shortcut.cheatsheet_id
+
+= link_to 'Edit', edit_shortcut_path(@shortcut)
+\|
+= link_to 'Back', shortcuts_path

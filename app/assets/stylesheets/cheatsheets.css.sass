@@ -1,0 +1,55 @@
+@import "compass/css3"
+@import "compass/css3/user-interface"
+
+.keyboard
+  +user-select(none)
+  .row
+    margin: 0 0 4px 0
+  .key
+    display: inline-block
+    border: 1px solid #333
+    +border-radius(4px)
+    padding: 4px
+    width: 32px
+    height: 32px
+    margin: 0 4px 0 0
+
+  #k_f1, #k_f5, #k_f9
+    margin-left: 20px
+
+  #k_backspace
+    width: 42px
+  #k_tab
+    width: 53px
+  #k_caps
+    width: 65px
+  #k_return
+    width: 60px
+  #k_shift
+    width: 88px
+  #k_return
+    width: 60px
+  #k_space
+    width: 241px
+
+.cheatsheet
+  .groups
+    margin-top: 40px
+    .group
+      display: inline-block
+      float: left
+      margin: 0 10px 10px 0
+      width: 300px
+      .name
+        padding: 4px 8px
+      .name .desc
+        margin-bottom:  10px
+
+      .shortcuts
+        .shortcut
+          .key, .desc
+            display: inline-block
+          .key
+            width: 100px
+
+    
