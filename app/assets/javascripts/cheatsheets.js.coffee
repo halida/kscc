@@ -15,15 +15,20 @@ class ShortcutController extends Spine.Controller
         'dblclick': "enter_edit"
         "keypress .edit_key, .edit_desc": "check_edit_finished"
         "click .delete": "on_delete"
+        "hover": "on_hover"
 
     constructor: ->
         super
         @item.bind "update", @render
         @item.bind "destroy", @release
+        @item.bind "active", @active
 
     render: =>
         @replace(JST['app/views/shortcuts/show'] shortcut: @item)
         @
+
+    active: =>
+        @el.addClass('on')
 
     enter_edit: =>
         @el.addClass('editing')
@@ -40,6 +45,9 @@ class ShortcutController extends Spine.Controller
     on_delete: =>
         @item.destroy()
 
+    on_hover: =>
+        Shortcut.trigger "active_key", @item.key
+
     release: =>
         @el.fadeOut(300, =>@el.remove())
 
@@ -54,7 +62,7 @@ class ShortcutsController extends Spine.Controller
         shortcut = Shortcut.create key: "a", desc: "move left"
 
     add_one: (shortcut)=>
-        view = new ShortcutController(item: shortcut)
+        view = new ShortcutController(item: shortcut, group: @group)
         el = view.render().el
         el.hide().fadeIn(300)
         @el.append(el)
@@ -81,7 +89,7 @@ class GroupController extends Spine.Controller
     render: =>
         @replace(JST['app/views/groups/show'] group: @item)
         @title.css('background-color', @item.color)
-        @shortcuts_controller = new ShortcutsController(el: @shortcuts)
+        @shortcuts_controller = new ShortcutsController(el: @shortcuts, group: @)
         @
 
     enter_edit: =>
@@ -126,9 +134,30 @@ class GroupsController extends Spine.Controller
 class CheatsheetController extends Spine.Controller
     elements:
         ".groups": "groups"
+        ".keyboard": "keyboard"
+
+    events:
+        "hover .key": "on_active_key"
+
     constructor: ->
         super
         @groups_controller = new GroupsController(el: @groups)
+        Shortcut.bind "active_key", @on_active_shortcut
+
+    on_active_key: (e)=>
+        k = $(e.target)
+        key = k.attr('id').substring(2, 100)
+        @on_active_shortcut(key) if key
+
+    on_active_shortcut: (key)=>
+        @keyboard.find('.key.on').removeClass('on')
+        @groups.find('.shortcut.on').removeClass('on')
+
+        sc = Shortcut.findByAttribute('key', key)
+        sc.trigger 'active' if sc
+
+        k = @keyboard.find('#k_'+key)
+        k.addClass('on') if k.length > 0
 
     # elements:
     #     ".group": "groups"
