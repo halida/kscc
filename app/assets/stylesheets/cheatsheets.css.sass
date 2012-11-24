@@ -7,7 +7,7 @@
     margin: 0 0 4px 0
   .key
     display: inline-block
-    border: 1px solid #333
+    border: 2px solid #333
     +border-radius(4px)
     padding: 4px
     width: 32px
@@ -37,14 +37,40 @@
 .cheatsheet
   .groups
     margin-top: 40px
+    .op
+      cursor: pointer
+      margin: 0 4px
+      &:hover
+        color: black
+        background-color: inherit
+      
+    .ctl
+      margin: 0 0 10px 0
+
+    .group.editing
+      .name
+        display: none
+      .edit_name
+        display: block
+      
     .group
       display: inline-block
       float: left
       margin: 0 10px 10px 0
       width: 300px
-      .name
+      position: relative
+
+      .delete
+        position: absolute
+        top: 4px
+        right: 4px
+
+      .edit_name
+        display: none
+
+      .title
         padding: 4px 8px
-      .name .desc
+      .title .desc
         margin-bottom:  10px
 
       .shortcuts

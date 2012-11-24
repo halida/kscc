@@ -1,0 +1,11 @@
+.group{'data-color' => group.color}
+  .title
+    %span.name= group.name
+    %input.edit_name{type: "text", value: group.name}
+    %a.op.delete
+      %i.icon-minus
+  
+  .desc= group.desc
+  .shortcuts
+
+  
