@@ -39,7 +39,7 @@
     margin-top: 40px
     .op
       cursor: pointer
-      margin: 0 4px
+      margin: 0 4px 0 0
       &:hover
         color: black
         background-color: inherit
@@ -75,7 +75,20 @@
 
       .shortcuts
         .shortcut
+          position: relative
           border-bottom: 1px solid #fff
+
+          &.editing
+            .key, .desc
+              display: none
+            .edit_key, .edit_desc
+              display: inline-block
+              margin-right: 10px
+              width: 80px
+            
+          .edit_key, .edit_desc
+            display: none
+
           .key, .desc
             display: inline-block
           .key

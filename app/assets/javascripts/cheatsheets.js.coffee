@@ -4,16 +4,74 @@ class Group extends Spine.Model
 class Shortcut extends Spine.Model
     @configure 'Shortcut', 'key', 'desc'
 
+class ShortcutController extends Spine.Controller
+    elements:
+        '.title': 'title'
+        '.name': 'name'
+        '.edit_key': 'edit_key'
+        '.edit_desc': 'edit_desc'
+
+    events:
+        'dblclick': "enter_edit"
+        "keypress .edit_key, .edit_desc": "check_edit_finished"
+        "click .delete": "on_delete"
+
+    constructor: ->
+        super
+        @item.bind "update", @render
+        @item.bind "destroy", @release
+
+    render: =>
+        @replace(JST['app/views/shortcuts/show'] shortcut: @item)
+        @
+
+    enter_edit: =>
+        @el.addClass('editing')
+        @edit_key.focus()
+
+    leave_edit: =>
+        @item.updateAttributes key: @edit_key.attr('value'), desc: @edit_desc.attr('value')
+        @el.removeClass('editing')
+
+    check_edit_finished: (e)=>
+        return unless e.keyCode == 13
+        @leave_edit()
+
+    on_delete: =>
+        @item.destroy()
+
+    release: =>
+        @el.fadeOut(300, =>@el.remove())
+
+class ShortcutsController extends Spine.Controller
+
+    constructor: ->
+        super
+        Shortcut.bind "create", @add_one
+        Shortcut.create key: 'a', desc: 'move left'
+
+    on_add: =>
+        shortcut = Shortcut.create key: "a", desc: "move left"
+
+    add_one: (shortcut)=>
+        view = new ShortcutController(item: shortcut)
+        el = view.render().el
+        el.hide().fadeIn(300)
+        @el.append(el)
+
+
 class GroupController extends Spine.Controller
     elements:
         '.title': 'title'
         '.name': 'name'
         '.edit_name': 'edit_name'
+        '.shortcuts': 'shortcuts'
 
     events:
         'dblclick .title': "enter_edit"
         "keypress .edit_name": "check_change_name_finished"
-        "click .delete": "on_delete"
+        "click .title .delete": "on_delete"
+        "click .title .add": "on_add_shortcut"
 
     constructor: ->
         super
@@ -23,6 +81,7 @@ class GroupController extends Spine.Controller
     render: =>
         @replace(JST['app/views/groups/show'] group: @item)
         @title.css('background-color', @item.color)
+        @shortcuts_controller = new ShortcutsController(el: @shortcuts)
         @
 
     enter_edit: =>
@@ -37,6 +96,9 @@ class GroupController extends Spine.Controller
         return unless e.keyCode == 13
         @leave_edit()
 
+    on_add_shortcut: =>
+        @shortcuts_controller.on_add()
+
     on_delete: =>
         @item.destroy()
 
@@ -45,12 +107,12 @@ class GroupController extends Spine.Controller
 
 class GroupsController extends Spine.Controller
     events:
-        'click .add': "on_add"
+        'click > .ctl .add': "on_add"
 
     constructor: ->
         super
         Group.bind "create", @add_one
-        Group.create name: 'movement', desc: 'for move', color: "red"
+        Group.create name: 'movement', desc: '', color: "red"
 
     on_add: =>
         group = Group.create name: "default", color: "green"

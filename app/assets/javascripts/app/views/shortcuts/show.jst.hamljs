@@ -1,0 +1,8 @@
+.shortcut{"data-key" => shortcut.key}
+  %span.key= shortcut.key
+  %span.desc= shortcut.desc
+  %input.edit_key{type: "text", value: shortcut.key}
+  %input.edit_desc{type: "text", value: shortcut.desc}
+  %a.op.delete
+    %i.icon-minus
+  
