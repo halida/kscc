@@ -3,6 +3,7 @@ class Group extends Spine.Model
 
 class Shortcut extends Spine.Model
     @configure 'Shortcut', 'key', 'desc'
+    # @belongsTo 'group', 'Group'
 
 class ShortcutController extends Spine.Controller
     elements:
@@ -25,6 +26,12 @@ class ShortcutController extends Spine.Controller
 
     render: =>
         @replace(JST['app/views/shortcuts/show'] shortcut: @item)
+        @group.cheatsheet.keyboard.find("#k_"+@item.key).css('background-color': @group.item.color)
+        console.log Shortcut.all()[0].group
+        # cs = @group.cheatsheet
+        # cs.keyboard.find('.key').css('background-color', '#fff')
+        # for sc in Shortcut.all()
+        #     cs.keyboard.find('#k_'+sc.key).css('background-color': sc.group.color)
         @
 
     active: =>
@@ -56,10 +63,13 @@ class ShortcutsController extends Spine.Controller
     constructor: ->
         super
         Shortcut.bind "create", @add_one
-        Shortcut.create key: 'a', desc: 'move left'
+        Shortcut.create key: 'a', desc: 'move left', group: @item
 
     on_add: =>
-        shortcut = Shortcut.create key: "a", desc: "move left"
+        shortcut = Shortcut.create key: "a", desc: "move left", group: @item
+
+    update_key_color: =>
+        scs = Shortcut.findAllByAttribute('group', @item)
 
     add_one: (shortcut)=>
         view = new ShortcutController(item: shortcut, group: @group)
@@ -126,7 +136,7 @@ class GroupsController extends Spine.Controller
         group = Group.create name: "default", color: "green"
 
     add_one: (group)=>
-        view = new GroupController(item: group)
+        view = new GroupController(item: group, cheatsheet: @cheatsheet)
         el = view.render().el
         el.hide().fadeIn(300)
         @el.append(el)
@@ -141,7 +151,7 @@ class CheatsheetController extends Spine.Controller
 
     constructor: ->
         super
-        @groups_controller = new GroupsController(el: @groups)
+        @groups_controller = new GroupsController(el: @groups, cheatsheet: @)
         Shortcut.bind "active_key", @on_active_shortcut
 
     on_active_key: (e)=>
